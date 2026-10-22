@@ -1,7 +1,7 @@
 {
     "service":  "aut-secure-exam",
-    "url":  "https://transition-pts-frederick-degree.trycloudflare.com",
+    "url":  "https://edge-upgrades-protocol-relate.trycloudflare.com",
     "online":  true,
-    "updated":  "2026-10-22T10:35:12Z",
+    "updated":  "2026-10-22T10:37:53Z",
     "note":  "Written by tools/public-test.ps1 when the AUT Exam public test server starts or stops."
 }
