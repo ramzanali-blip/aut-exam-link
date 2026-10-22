@@ -1,7 +1,7 @@
 {
-  "service": "aut-secure-exam",
-  "url": null,
-  "online": false,
-  "updated": "2026-10-22T00:00:00Z",
-  "note": "Written by tools/public-test.ps1 when the AUT Exam public test server starts or stops."
+    "service":  "aut-secure-exam",
+    "url":  "https://beans-donna-affected-carriers.trycloudflare.com",
+    "online":  true,
+    "updated":  "2026-10-22T10:24:24Z",
+    "note":  "Written by tools/public-test.ps1 when the AUT Exam public test server starts or stops."
 }
