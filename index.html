@@ -21,9 +21,11 @@
   const msg = document.getElementById('msg');
   const path = location.hash.length > 1 ? location.hash.slice(1) : '/downloads/';
   try {
-    const link = await (await fetch('link.json?t=' + Date.now(), { cache: 'no-store' })).json();
+    // raw.githubusercontent.com has the newest link within seconds; this site's own copy can lag a few minutes.
+    const get = (u) => fetch(u + '?t=' + Date.now(), { cache: 'no-store', signal: AbortSignal.timeout(8000) }).then((r) => r.json());
+    const link = await get('https://raw.githubusercontent.com/ramzanali-blip/aut-exam-link/main/link.json').catch(() => get('link.json'));
     if (!link.url || !link.online) throw new Error('offline');
-    const ok = await fetch(link.url + '/api/health', { cache: 'no-store' }).then((r) => r.ok).catch(() => false);
+    const ok = await fetch(link.url + '/api/health', { cache: 'no-store', signal: AbortSignal.timeout(10000) }).then((r) => r.ok).catch(() => false);
     if (!ok) throw new Error('offline');
     msg.textContent = 'Opening the test server…';
     document.getElementById('links').innerHTML =
