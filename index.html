@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AUT Secure Exam – test server</title>
+<style>
+  body { margin:0; font-family:"Segoe UI",Arial,sans-serif; background:#f4f6f9; color:#1b2433; display:flex; min-height:100vh; align-items:center; justify-content:center; }
+  main { max-width:520px; margin:16px; background:#fff; border:1px solid #dde3ea; border-top:5px solid #c4922f; border-radius:10px; padding:24px; text-align:center; }
+  h1 { color:#0b5aa6; font-size:22px; margin:0 0 8px; }
+  p { color:#5a6577; }
+  a.btn { display:inline-block; margin:6px; background:#0b5aa6; color:#fff; text-decoration:none; padding:10px 18px; border-radius:6px; font-weight:600; }
+</style></head>
+<body><main>
+  <h1>AUT Secure Exam · test server</h1>
+  <p id="msg">Looking for the test server…</p>
+  <div id="links"></div>
+</main>
+<script>
+// Forwards to the current address of the public test server (it changes each time the organiser restarts it).
+// Add a path after # to go to a page, e.g. …/aut-exam-link/#/english/   (default: the student download page).
+(async () => {
+  const msg = document.getElementById('msg');
+  const path = location.hash.length > 1 ? location.hash.slice(1) : '/downloads/';
+  try {
+    const link = await (await fetch('link.json?t=' + Date.now(), { cache: 'no-store' })).json();
+    if (!link.url || !link.online) throw new Error('offline');
+    const ok = await fetch(link.url + '/api/health', { cache: 'no-store' }).then((r) => r.ok).catch(() => false);
+    if (!ok) throw new Error('offline');
+    msg.textContent = 'Opening the test server…';
+    document.getElementById('links').innerHTML =
+      `<a class="btn" href="${link.url}/downloads/">Student download page</a><a class="btn" href="${link.url}/">Professor portal</a>` +
+      `<a class="btn" href="${link.url}/english/">English practice</a>`;
+    location.replace(link.url + path);
+  } catch (e) {
+    msg.innerHTML = 'The test server is <b>offline</b> right now (the organiser\'s PC is off or the server window is closed). ' +
+      'Please try again later.<br><br>The Android TEST app still works as an <b>offline demo</b> without the server.';
+  }
+})();
+</script>
+</body></html>
