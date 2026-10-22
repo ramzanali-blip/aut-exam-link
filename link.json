@@ -1,7 +1,7 @@
 {
     "service":  "aut-secure-exam",
-    "url":  "https://beans-donna-affected-carriers.trycloudflare.com",
+    "url":  "https://transition-pts-frederick-degree.trycloudflare.com",
     "online":  true,
-    "updated":  "2026-10-22T10:24:24Z",
+    "updated":  "2026-10-22T10:35:12Z",
     "note":  "Written by tools/public-test.ps1 when the AUT Exam public test server starts or stops."
 }
